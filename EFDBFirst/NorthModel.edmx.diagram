@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="376abfbd657343baa156f48ebaa3c122" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="NorthwindSabahModel.Category" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="NorthwindSabahModel.Product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="NorthwindSabahModel.FK_Products_Categories" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="NorthwindSabahModel.Employee" Width="1.5" PointX="5.375" PointY="0.75" />
+        <AssociationConnector Association="NorthwindSabahModel.FK_Employees_Employees" />
+        <EntityTypeShape EntityType="NorthwindSabahModel.Customer" Width="1.5" PointX="0.75" PointY="7.625" />
+        <EntityTypeShape EntityType="NorthwindSabahModel.Order_Detail" Width="1.5" PointX="10.25" PointY="3.375" />
+        <EntityTypeShape EntityType="NorthwindSabahModel.Order" Width="1.5" PointX="8" PointY="3.625" />
+        <EntityTypeShape EntityType="NorthwindSabahModel.Shipper" Width="1.5" PointX="5.75" PointY="7" />
+        <EntityTypeShape EntityType="NorthwindSabahModel.Supplier" Width="1.5" PointX="1.125" PointY="12" />
+        <AssociationConnector Association="NorthwindSabahModel.FK_Orders_Customers" />
+        <AssociationConnector Association="NorthwindSabahModel.FK_Orders_Employees" />
+        <AssociationConnector Association="NorthwindSabahModel.FK_Order_Details_Orders" />
+        <AssociationConnector Association="NorthwindSabahModel.FK_Order_Details_Products" />
+        <AssociationConnector Association="NorthwindSabahModel.FK_Orders_Shippers" />
+        <AssociationConnector Association="NorthwindSabahModel.FK_Products_Suppliers" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
