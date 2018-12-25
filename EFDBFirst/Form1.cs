@@ -133,15 +133,15 @@ namespace EFDBFirst
             //    p => p.ProductID,
             //    od => od.ProductID,
             //    (p, od) => new { p, od })
-            //    .GroupBy(x => new { x.p.ProductName, x.od.OrderID })
-            //    .OrderBy(x => x.Key.OrderID)
+            //    .GroupBy(x => x.p.ProductName)
+            //    .OrderBy(x => x.Key)
+            //    .ToList()
             //    .Select(x => new
             //    {
-            //        x.Key.OrderID,
-            //        x.Key.ProductName,
-            //        Total = x.Sum(y => y.od.UnitPrice * y.od.Quantity)
-            //    }).ToList();
-            //dgvTest.DataSource = sorgu9;
+            //        x.Key,
+            //        Total = Math.Round(x.Sum(y => y.od.UnitPrice * y.od.Quantity * Convert.ToDecimal(1 - y.od.Discount)), 2)
+            //    });
+            //dgvTest.DataSource = sorgu9.ToList();
 
             var sorgu9 = db.Order_Details
                 .Join(db.Products,
@@ -156,7 +156,7 @@ namespace EFDBFirst
                     x.Key,
                     Total = Math.Round(x.Sum(y => y.od.UnitPrice * y.od.Quantity * Convert.ToDecimal(1 - y.od.Discount)), 2)
                 });
-            //dgvTest.DataSource = sorgu9.ToList();
+            dgvTest.DataSource = sorgu9.ToList();
 
             //var sorgu10 = from p in db.Products
             //              join od in db.Order_Details on p.ProductID equals od.ProductID
@@ -290,7 +290,7 @@ namespace EFDBFirst
                               gp.Key.CategoryName,
                               Total = gp.Sum(x => x.dbOd.Quantity)
                           };
-            dgvTest.DataSource = sorgu17.OrderByDescending(x => x.Total).ToList();
+            //dgvTest.DataSource = sorgu17.OrderByDescending(x => x.Total).ToList();
 
 
         }
