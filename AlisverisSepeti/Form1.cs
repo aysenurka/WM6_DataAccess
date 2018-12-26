@@ -56,8 +56,8 @@ namespace AlisverisSepeti
         {
             NorthwindSabahEntities db = new NorthwindSabahEntities();
             var musteriler = db.Customers
-                .OrderBy(x => x.ContactName)
-                .Select(x => x.ContactName)
+                .OrderBy(x => x.CompanyName)
+                .Select(x => x.CompanyName)
                 .ToList();
 
             cmbMusteri.DataSource = musteriler;
