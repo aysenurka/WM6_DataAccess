@@ -156,7 +156,7 @@ namespace EFDBFirst
                     x.Key,
                     Total = Math.Round(x.Sum(y => y.od.UnitPrice * y.od.Quantity * Convert.ToDecimal(1 - y.od.Discount)), 2)
                 });
-            dgvTest.DataSource = sorgu9.ToList();
+            //dgvTest.DataSource = sorgu9.ToList();
 
             //var sorgu10 = from p in db.Products
             //              join od in db.Order_Details on p.ProductID equals od.ProductID
@@ -290,7 +290,7 @@ namespace EFDBFirst
                               gp.Key.CategoryName,
                               Total = gp.Sum(x => x.dbOd.Quantity)
                           };
-            //dgvTest.DataSource = sorgu17.OrderByDescending(x => x.Total).ToList();
+            dgvTest.DataSource = sorgu17.OrderByDescending(x => x.Total).ToList();
 
 
         }
