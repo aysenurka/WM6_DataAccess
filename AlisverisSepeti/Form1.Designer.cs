@@ -44,15 +44,16 @@
             this.lblSepetToplam = new System.Windows.Forms.Label();
             this.btnSiparisVer = new System.Windows.Forms.Button();
             this.pnlDetay = new System.Windows.Forms.Panel();
+            this.btnGuncelle = new System.Windows.Forms.Button();
+            this.nuIndirim = new System.Windows.Forms.NumericUpDown();
+            this.nuAdet = new System.Windows.Forms.NumericUpDown();
             this.lblAdet = new System.Windows.Forms.Label();
             this.lblIndirim = new System.Windows.Forms.Label();
-            this.nuAdet = new System.Windows.Forms.NumericUpDown();
-            this.nuIndirim = new System.Windows.Forms.NumericUpDown();
-            this.btnGuncelle = new System.Windows.Forms.Button();
+            this.txtAdres = new System.Windows.Forms.TextBox();
             this.cmsSepet.SuspendLayout();
             this.pnlDetay.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nuAdet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuIndirim)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuAdet)).BeginInit();
             this.SuspendLayout();
             // 
             // lstUrunler
@@ -71,6 +72,7 @@
             this.btnSepeteEkle.TabIndex = 1;
             this.btnSepeteEkle.Text = "Sepete Ekle";
             this.btnSepeteEkle.UseVisualStyleBackColor = true;
+            this.btnSepeteEkle.Click += new System.EventHandler(this.btnSepeteEkle_Click);
             // 
             // txtAra
             // 
@@ -78,6 +80,7 @@
             this.txtAra.Name = "txtAra";
             this.txtAra.Size = new System.Drawing.Size(175, 20);
             this.txtAra.TabIndex = 2;
+            this.txtAra.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtAra_KeyUp);
             // 
             // cmbMusteri
             // 
@@ -137,14 +140,16 @@
             // cikarToolStripMenuItem
             // 
             this.cikarToolStripMenuItem.Name = "cikarToolStripMenuItem";
-            this.cikarToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.cikarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cikarToolStripMenuItem.Text = "Cikar";
+            this.cikarToolStripMenuItem.Click += new System.EventHandler(this.cikarToolStripMenuItem_Click);
             // 
             // guncelleToolStripMenuItem
             // 
             this.guncelleToolStripMenuItem.Name = "guncelleToolStripMenuItem";
-            this.guncelleToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.guncelleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.guncelleToolStripMenuItem.Text = "Guncelle";
+            this.guncelleToolStripMenuItem.Click += new System.EventHandler(this.guncelleToolStripMenuItem_Click);
             // 
             // lblSepetToplam
             // 
@@ -175,6 +180,31 @@
             this.pnlDetay.Name = "pnlDetay";
             this.pnlDetay.Size = new System.Drawing.Size(252, 114);
             this.pnlDetay.TabIndex = 15;
+            this.pnlDetay.Visible = false;
+            // 
+            // btnGuncelle
+            // 
+            this.btnGuncelle.Location = new System.Drawing.Point(113, 77);
+            this.btnGuncelle.Name = "btnGuncelle";
+            this.btnGuncelle.Size = new System.Drawing.Size(121, 23);
+            this.btnGuncelle.TabIndex = 20;
+            this.btnGuncelle.Text = "Guncelle";
+            this.btnGuncelle.UseVisualStyleBackColor = true;
+            this.btnGuncelle.Click += new System.EventHandler(this.btnGuncelle_Click);
+            // 
+            // nuIndirim
+            // 
+            this.nuIndirim.Location = new System.Drawing.Point(114, 51);
+            this.nuIndirim.Name = "nuIndirim";
+            this.nuIndirim.Size = new System.Drawing.Size(120, 20);
+            this.nuIndirim.TabIndex = 19;
+            // 
+            // nuAdet
+            // 
+            this.nuAdet.Location = new System.Drawing.Point(114, 18);
+            this.nuAdet.Name = "nuAdet";
+            this.nuAdet.Size = new System.Drawing.Size(120, 20);
+            this.nuAdet.TabIndex = 18;
             // 
             // lblAdet
             // 
@@ -194,34 +224,19 @@
             this.lblIndirim.TabIndex = 17;
             this.lblIndirim.Text = "Indirim:";
             // 
-            // nuAdet
+            // txtAdres
             // 
-            this.nuAdet.Location = new System.Drawing.Point(114, 18);
-            this.nuAdet.Name = "nuAdet";
-            this.nuAdet.Size = new System.Drawing.Size(120, 20);
-            this.nuAdet.TabIndex = 18;
-            // 
-            // nuIndirim
-            // 
-            this.nuIndirim.Location = new System.Drawing.Point(114, 51);
-            this.nuIndirim.Name = "nuIndirim";
-            this.nuIndirim.Size = new System.Drawing.Size(120, 20);
-            this.nuIndirim.TabIndex = 19;
-            // 
-            // btnGuncelle
-            // 
-            this.btnGuncelle.Location = new System.Drawing.Point(113, 77);
-            this.btnGuncelle.Name = "btnGuncelle";
-            this.btnGuncelle.Size = new System.Drawing.Size(121, 23);
-            this.btnGuncelle.TabIndex = 20;
-            this.btnGuncelle.Text = "Guncelle";
-            this.btnGuncelle.UseVisualStyleBackColor = true;
+            this.txtAdres.Location = new System.Drawing.Point(243, 250);
+            this.txtAdres.Name = "txtAdres";
+            this.txtAdres.Size = new System.Drawing.Size(173, 20);
+            this.txtAdres.TabIndex = 16;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(934, 450);
+            this.Controls.Add(this.txtAdres);
             this.Controls.Add(this.pnlDetay);
             this.Controls.Add(this.btnSiparisVer);
             this.Controls.Add(this.lblSepetToplam);
@@ -240,8 +255,8 @@
             this.cmsSepet.ResumeLayout(false);
             this.pnlDetay.ResumeLayout(false);
             this.pnlDetay.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nuAdet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuIndirim)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuAdet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -269,6 +284,7 @@
         private System.Windows.Forms.NumericUpDown nuAdet;
         private System.Windows.Forms.Label lblAdet;
         private System.Windows.Forms.Label lblIndirim;
+        private System.Windows.Forms.TextBox txtAdres;
     }
 }
 

@@ -12,6 +12,6 @@ namespace AlisverisSepeti.ViewModels
         public string ProductName { get; set; }
         public decimal? UnitPrice { get; set; }
 
-        public override string ToString() => $"{ProductName} {UnitPrice:c3}";
+        public override string ToString() => $"{ProductName} {UnitPrice:c2}";
     }
 }

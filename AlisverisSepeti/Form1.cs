@@ -17,7 +17,7 @@ namespace AlisverisSepeti
         {
             InitializeComponent();
         }
-
+        private List<SepetViewModel> sepet = new List<SepetViewModel>();
         private void Form1_Load(object sender, EventArgs e)
         {
             UrunleriGetir();
@@ -33,6 +33,7 @@ namespace AlisverisSepeti
                 .OrderBy(x => x.FirstName)
                 .Select(x => new EmployeeViewModel
                 {
+                    EmployeeId = x.EmployeeID,
                     FirstName = x.FirstName,
                     LastName = x.LastName
                 })
@@ -44,9 +45,9 @@ namespace AlisverisSepeti
         private void NakliyeleriGetir()
         {
             NorthwindSabahEntities db = new NorthwindSabahEntities();
-            var nakliyeler = db.Orders
-                .OrderBy(x => x.ShipName)
-                .Select(x => x.ShipName)
+            var nakliyeler = db.Shippers
+                .OrderBy(x => x.CompanyName)
+                .Select(x => x.CompanyName)
                 .ToList();
 
             cmbNakliye.DataSource = nakliyeler;
@@ -68,13 +69,119 @@ namespace AlisverisSepeti
             NorthwindSabahEntities db = new NorthwindSabahEntities();
             var urunler = db.Products
                 .OrderBy(x => x.ProductName)
-                .Select(x => new ProductViewModel() {
-                    ProductName=x.ProductName,
-                    UnitPrice=x.UnitPrice
+                .Select(x => new ProductViewModel()
+                {
+                    ProductId = x.ProductID,
+                    ProductName = x.ProductName,
+                    UnitPrice = x.UnitPrice
                 })
                 .ToList();
 
             lstUrunler.DataSource = urunler;
+        }
+
+        private void txtAra_KeyUp(object sender, KeyEventArgs e)
+        {
+            string ara = txtAra.Text.ToLower();
+
+            NorthwindSabahEntities db = new NorthwindSabahEntities();
+
+            List<ProductViewModel> bulunanlar = new List<ProductViewModel>();
+
+            db.Products
+                .Where(x => x.ProductName.ToLower().Contains(ara) || x.Category.CategoryName.ToLower().Contains(ara))
+                .ToList()
+                .ForEach(x => bulunanlar.Add(new ProductViewModel()
+                {
+                    ProductId = x.ProductID,
+                    ProductName = x.ProductName,
+                    UnitPrice = x.UnitPrice
+                }));
+
+            lstUrunler.DataSource = bulunanlar;
+        }
+
+        private void btnSepeteEkle_Click(object sender, EventArgs e)
+        {
+            if (lstUrunler.SelectedItem == null) return;
+
+            var seciliUrun = lstUrunler.SelectedItem as ProductViewModel;
+            bool varMi = false;
+            var sepetteOlanUrun = new SepetViewModel();
+
+            foreach (var sepetViewModel in sepet)
+            {
+                if (seciliUrun.ProductId == sepetViewModel.ProductID)
+                {
+                    varMi = true;
+                    sepetteOlanUrun = sepetViewModel;
+                    break;
+                }
+            }
+
+            if (varMi) sepetteOlanUrun.Quantity++;
+            else
+            {
+                sepet.Add(new SepetViewModel()
+                {
+                    ProductID = seciliUrun.ProductId,
+                    ProductName = seciliUrun.ProductName,
+                    UnitPrice = seciliUrun.UnitPrice ?? 0,
+                    Quantity = 1,
+                    Discount = 0,
+                });
+            }
+
+            SepetHesapla();
+        }
+
+        private void SepetHesapla()
+        {
+            lstSepet.Items.Clear();
+            foreach (var item in sepet)
+            {
+                lstSepet.Items.Add(item);
+            }
+
+            var tutar = sepet.Sum(x => x.UnitPrice * x.Quantity * Convert.ToDecimal(1 - x.Discount));
+            lblSepetToplam.Text = $"Sepet Toplam: {tutar:c2}";
+        }
+
+        private void cikarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lstSepet.SelectedItem == null) return;
+
+            var seciliSepet1 = lstSepet.SelectedItem as SepetViewModel;
+            sepet.Remove(seciliSepet1);
+            SepetHesapla();
+        }
+
+        private SepetViewModel seciliSepet;
+        private void guncelleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lstSepet.SelectedItem == null) return;
+
+            seciliSepet=lstSepet.SelectedItem as SepetViewModel;
+            pnlDetay.Visible = true;
+            nuAdet.Value = seciliSepet.Quantity;
+            nuIndirim.Value = Convert.ToDecimal(seciliSepet.Discount);
+        }
+
+        private void btnGuncelle_Click(object sender, EventArgs e)
+        {
+            foreach (var item in sepet)
+            {
+                if (seciliSepet.ProductID==item.ProductID)
+                {
+                    item.Discount = Convert.ToSingle(nuIndirim.Value);
+                    item.Quantity = Convert.ToInt16(nuAdet.Value);
+                    break;
+                }
+            }
+
+            pnlDetay.Visible = false;
+            seciliSepet = null;
+            SepetHesapla();
         }
     }
 }
