@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\OrderBusiness.cs" />
     <Compile Include="Category.cs">
       <DependentUpon>NorthModel.tt</DependentUpon>
     </Compile>
@@ -97,6 +98,7 @@
     <Compile Include="Shipper.cs">
       <DependentUpon>NorthModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\CartViewModel.cs" />
     <Compile Include="ViewModels\EmployeeViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="ViewModels\SepetViewModel.cs" />

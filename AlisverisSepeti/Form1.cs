@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AlisverisSepeti.BLL;
+using Exception = System.Exception;
 
 namespace AlisverisSepeti
 {
@@ -33,7 +35,7 @@ namespace AlisverisSepeti
                 .OrderBy(x => x.FirstName)
                 .Select(x => new EmployeeViewModel
                 {
-                    EmployeeId = x.EmployeeID,
+                    EmployeeID = x.EmployeeID,
                     FirstName = x.FirstName,
                     LastName = x.LastName
                 })
@@ -182,6 +184,39 @@ namespace AlisverisSepeti
             pnlDetay.Visible = false;
             seciliSepet = null;
             SepetHesapla();
+        }
+
+        private void btnSiparisVer_Click(object sender, EventArgs e)
+        {
+            if (!sepet.Any())
+            {
+                MessageBox.Show("Lutfen sepete urun ekleyiniz");
+                return;
+            }
+
+            try
+            {
+                var orderBusiness = new OrderBusiness();
+                var cartModel=new CartViewModel()
+                {
+                    CartModel = sepet,
+                    CustomerID = (cmbMusteri.SelectedItem as Customer).CustomerID,
+                    EmployeeID = (cmbCalisan.SelectedItem as EmployeeViewModel).EmployeeID,
+                    ShipVia = (cmbNakliye.SelectedItem as Shipper).ShipperID,
+                    Freight = nuNakliyeFiyat.Value,
+                    RequiredDate = dtpTarih.Value,
+                    Address = txtAdres.Text
+                };
+
+                var sipNo= orderBusiness.MakeOrder(cartModel);
+                MessageBox.Show($"{sipNo} nolu siparisiniz basariyla olusturulmustur", "Siparis",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                sepet=new List<SepetViewModel>();
+                SepetHesapla();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

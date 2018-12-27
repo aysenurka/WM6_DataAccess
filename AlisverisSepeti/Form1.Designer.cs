@@ -35,8 +35,7 @@
             this.cmbMusteri = new System.Windows.Forms.ComboBox();
             this.cmbNakliye = new System.Windows.Forms.ComboBox();
             this.cmbCalisan = new System.Windows.Forms.ComboBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.txtNakliyeFiyat = new System.Windows.Forms.TextBox();
+            this.dtpTarih = new System.Windows.Forms.DateTimePicker();
             this.lstSepet = new System.Windows.Forms.ListBox();
             this.cmsSepet = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cikarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,10 +49,12 @@
             this.lblAdet = new System.Windows.Forms.Label();
             this.lblIndirim = new System.Windows.Forms.Label();
             this.txtAdres = new System.Windows.Forms.TextBox();
+            this.nuNakliyeFiyat = new System.Windows.Forms.NumericUpDown();
             this.cmsSepet.SuspendLayout();
             this.pnlDetay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuIndirim)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuAdet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuNakliyeFiyat)).BeginInit();
             this.SuspendLayout();
             // 
             // lstUrunler
@@ -66,7 +67,7 @@
             // 
             // btnSepeteEkle
             // 
-            this.btnSepeteEkle.Location = new System.Drawing.Point(243, 291);
+            this.btnSepeteEkle.Location = new System.Drawing.Point(243, 323);
             this.btnSepeteEkle.Name = "btnSepeteEkle";
             this.btnSepeteEkle.Size = new System.Drawing.Size(121, 23);
             this.btnSepeteEkle.TabIndex = 1;
@@ -106,19 +107,12 @@
             this.cmbCalisan.Size = new System.Drawing.Size(173, 21);
             this.cmbCalisan.TabIndex = 5;
             // 
-            // dateTimePicker1
+            // dtpTarih
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(243, 212);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(173, 20);
-            this.dateTimePicker1.TabIndex = 9;
-            // 
-            // txtNakliyeFiyat
-            // 
-            this.txtNakliyeFiyat.Location = new System.Drawing.Point(243, 170);
-            this.txtNakliyeFiyat.Name = "txtNakliyeFiyat";
-            this.txtNakliyeFiyat.Size = new System.Drawing.Size(173, 20);
-            this.txtNakliyeFiyat.TabIndex = 10;
+            this.dtpTarih.Location = new System.Drawing.Point(243, 212);
+            this.dtpTarih.Name = "dtpTarih";
+            this.dtpTarih.Size = new System.Drawing.Size(173, 20);
+            this.dtpTarih.TabIndex = 9;
             // 
             // lstSepet
             // 
@@ -140,14 +134,14 @@
             // cikarToolStripMenuItem
             // 
             this.cikarToolStripMenuItem.Name = "cikarToolStripMenuItem";
-            this.cikarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cikarToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.cikarToolStripMenuItem.Text = "Cikar";
             this.cikarToolStripMenuItem.Click += new System.EventHandler(this.cikarToolStripMenuItem_Click);
             // 
             // guncelleToolStripMenuItem
             // 
             this.guncelleToolStripMenuItem.Name = "guncelleToolStripMenuItem";
-            this.guncelleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.guncelleToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.guncelleToolStripMenuItem.Text = "Guncelle";
             this.guncelleToolStripMenuItem.Click += new System.EventHandler(this.guncelleToolStripMenuItem_Click);
             // 
@@ -168,6 +162,7 @@
             this.btnSiparisVer.TabIndex = 14;
             this.btnSiparisVer.Text = "Siparis Ver";
             this.btnSiparisVer.UseVisualStyleBackColor = true;
+            this.btnSiparisVer.Click += new System.EventHandler(this.btnSiparisVer_Click);
             // 
             // pnlDetay
             // 
@@ -231,18 +226,25 @@
             this.txtAdres.Size = new System.Drawing.Size(173, 20);
             this.txtAdres.TabIndex = 16;
             // 
+            // nuNakliyeFiyat
+            // 
+            this.nuNakliyeFiyat.Location = new System.Drawing.Point(243, 172);
+            this.nuNakliyeFiyat.Name = "nuNakliyeFiyat";
+            this.nuNakliyeFiyat.Size = new System.Drawing.Size(173, 20);
+            this.nuNakliyeFiyat.TabIndex = 17;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(934, 450);
+            this.Controls.Add(this.nuNakliyeFiyat);
             this.Controls.Add(this.txtAdres);
             this.Controls.Add(this.pnlDetay);
             this.Controls.Add(this.btnSiparisVer);
             this.Controls.Add(this.lblSepetToplam);
             this.Controls.Add(this.lstSepet);
-            this.Controls.Add(this.txtNakliyeFiyat);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.dtpTarih);
             this.Controls.Add(this.cmbCalisan);
             this.Controls.Add(this.cmbNakliye);
             this.Controls.Add(this.cmbMusteri);
@@ -257,6 +259,7 @@
             this.pnlDetay.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuIndirim)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuAdet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuNakliyeFiyat)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -270,8 +273,7 @@
         private System.Windows.Forms.ComboBox cmbMusteri;
         private System.Windows.Forms.ComboBox cmbNakliye;
         private System.Windows.Forms.ComboBox cmbCalisan;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.TextBox txtNakliyeFiyat;
+        private System.Windows.Forms.DateTimePicker dtpTarih;
         private System.Windows.Forms.ListBox lstSepet;
         private System.Windows.Forms.ContextMenuStrip cmsSepet;
         private System.Windows.Forms.ToolStripMenuItem cikarToolStripMenuItem;
@@ -285,6 +287,7 @@
         private System.Windows.Forms.Label lblAdet;
         private System.Windows.Forms.Label lblIndirim;
         private System.Windows.Forms.TextBox txtAdres;
+        private System.Windows.Forms.NumericUpDown nuNakliyeFiyat;
     }
 }
 

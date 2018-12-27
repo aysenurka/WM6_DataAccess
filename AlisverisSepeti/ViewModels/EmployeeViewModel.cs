@@ -10,7 +10,7 @@ namespace AlisverisSepeti.ViewModels
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int EmployeeId { get; set; }
+        public int EmployeeID { get; set; }
 
         public override string ToString() => $"{FirstName} {LastName}";
     }
