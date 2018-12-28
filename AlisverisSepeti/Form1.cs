@@ -49,10 +49,10 @@ namespace AlisverisSepeti
             NorthwindSabahEntities db = new NorthwindSabahEntities();
             var nakliyeler = db.Shippers
                 .OrderBy(x => x.CompanyName)
-                .Select(x => x.CompanyName)
                 .ToList();
 
             cmbNakliye.DataSource = nakliyeler;
+            cmbNakliye.DisplayMember = "CompanyName";
         }
 
         private void MusterileriGetir()
@@ -60,10 +60,10 @@ namespace AlisverisSepeti
             NorthwindSabahEntities db = new NorthwindSabahEntities();
             var musteriler = db.Customers
                 .OrderBy(x => x.CompanyName)
-                .Select(x => x.CompanyName)
                 .ToList();
 
             cmbMusteri.DataSource = musteriler;
+            cmbMusteri.DisplayMember = "CompanyName";
         }
 
         private void UrunleriGetir()
